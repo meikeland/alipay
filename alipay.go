@@ -9,7 +9,6 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
-	"github.com/smartwalle/crypto4go"
 	"io"
 	"io/ioutil"
 	"math"
@@ -19,6 +18,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/smartwalle/crypto4go"
 )
 
 var (
@@ -69,7 +70,7 @@ func WithHTTPClient(client *http.Client) OptionFunc {
 //
 // isProduction - 是否为生产环境，传 false 的时候为沙箱环境，用于开发测试，正式上线的时候需要改为 true
 func New(appId, privateKey string, isProduction bool, opts ...OptionFunc) (client *Client, err error) {
-	location, err := time.LoadLocation("Asia/Chongqing")
+	location := time.Local
 	if err != nil {
 		return nil, err
 	}
